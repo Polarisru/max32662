@@ -1,0 +1,121 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// EmBitz ST Segger J-Link debug interface script
+//
+// (fixed little endianness)
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////
+//
+//   This function is called before the settings dialog is presented
+//   you can set all the default values and set the pages to use for
+//   this interface (no particular order).
+//
+function InitSettingsDialog()
+{
+    // Set all the default values in case of a new project
+    //
+    // Syntax:   settingsDlg.SetValue( xrc_id, value, forceUpdate);
+    //
+
+    settingsDlg.SetValue(_T("ID_IP_ADDRESS"), _T("localhost"), false);
+    settingsDlg.SetValue(_T("ID_IP_PORT"),    _T("2331"),      false);
+
+    // We are defaulting to the reg key of Segger with the "InstallPath" attribute.
+    // The HKCU and HKLM are searched, any addition after the last '%' will be add to the
+    // path (e.g.  %Software\\SEGGER\\J-Link:InstallPath%\\.\\examples\\dbgscript )
+    settingsDlg.SetValue(_T("ID_PATH"), _T("%Software\\SEGGER\\J-Link:InstallPath%"), false);
+    settingsDlg.SetValue(_T("ID_EXEC"), _T("JLinkGDBServer.exe"), false);
+
+    // Default 2 seconds backoff time after connect
+    settingsDlg.SetValue(_T("ID_BACKOFF_TIME"), _T("2000"), false);
+
+    // This is optional, if there is no help then skip this so that the help
+    // button is hidden for the user.
+    settingsDlg.SetValue(_T("ID_HELP_URL"), _T("http://www.embitz.com/online_help/help.php?id=interfacing&branch=jlink&fam=st&v=1"), false);
+
+    settingsDlg.SetValue(_T("ID_DEVICE"), _T(""), false);
+    settingsDlg.SetValue(_T("ID_JTAG_SWD"), _T("SWD"), false);
+    settingsDlg.SetValue(_T("ID_SPEED"), _T("4000"), false);
+    settingsDlg.SetValue(_T("ID_AUTO_SPEED"), _T("0"), false);
+    settingsDlg.SetValue(_T("ID_ENDIANNESS"), _T("little"), true); //Fixed little endian
+    settingsDlg.SetValue(_T("ID_RESET_TYPE"), _T("0"), false);
+    settingsDlg.SetValue(_T("ID_VECTOR_START"), _T("0x10000000"), false);
+    settingsDlg.SetValue(_T("ID_LOAD_PROGRAM"), _T("1"), false);
+    settingsDlg.SetValue(_T("ID_FLASH_DOWNLOAD"), _T("1"), false);
+    settingsDlg.SetValue(_T("ID_FLASH_BREAK"), _T("1"), false);
+    settingsDlg.SetValue(_T("ID_RAM_EXEC"), _T("0"), false);
+    settingsDlg.SetValue(_T("ID_VEC_TABLE"), _T("1"), false);
+}
+
+//////////////////////////////////////////////////////////////////////
+//
+//  This function is called just before the debugging starts. Here you
+//  will set all the commands which must be used to initialize the
+//  debugger and interface (GDB server) and also the reset command which
+//  the debugger front-end (EmBitz) must use.
+//
+function InitDebugSession()
+{
+    local string = ::wxString();
+    dbginterface.SetValue(_T("ID_SERVER_ACTIVE_CLOSE"), _T("0"));
+
+    //=== Reset command: reposition SP+PC instead of bare hardware reset ===
+    // "reset N" on MAX3266x boots from 0x00000000 (ROM), not flash.
+    // Always re-point registers to flash entry, regardless of ROM/RAM mode.
+    string = _T("reg r13 = (");
+    string.Add( dbginterface.GetValue(_T("ID_VECTOR_START")) + _T(")\n") );
+    string.Add( _T("reg pc = (") );
+    string.Add( ::wxString.Format( _T("0x%x"),
+        dbginterface.GetValue(_T("ID_VECTOR_START")).Number()+4 ) + _T(")\n") );
+    dbginterface.SetResetCommands(string);
+
+    //=== Before connect ===
+    string = _T("-gdb-set arm force-m-profile 1");
+    dbginterface.SetBeforeConnectCommands(string);
+
+    //=== Server arguments ===
+    string = _T("-s -device ");
+    string.Add( dbginterface.GetValue(_T("ID_DEVICE")) );
+    string.Add( _T(" -speed ") );
+    if( dbginterface.GetValue(_T("ID_AUTO_SPEED")).Matches(_T("0")) )
+        string.Add( dbginterface.GetValue(_T("ID_SPEED")) );
+    else
+        string.Add( _T("auto") );
+    string.Add( _T(" -endian little -if SWD") );
+    dbginterface.SetServerArguments(string);
+
+    //=== After connect: reset → flash setup → VTOR → load → set SP/PC ===
+    string = _T("monitor clrbp\n");
+    string.Add( _T("monitor reset\n") );        // reset while flash algo is NOT yet armed -- safe
+    string.Add( _T("monitor sleep 100\n") );
+
+    string.Add( _T("monitor flash device = ") );
+    string.Add( dbginterface.GetValue(_T("ID_DEVICE")) + _T("\n") );
+    string.Add( _T("monitor flash download = ") );
+    string.Add( dbginterface.GetValue(_T("ID_FLASH_DOWNLOAD")) + _T("\n") );
+    string.Add( _T("monitor AllowSimulation 0\n") );
+    string.Add( _T("monitor flash breakpoints = ") );
+    string.Add( dbginterface.GetValue(_T("ID_FLASH_BREAK")) + _T("\n") );
+
+    // Remap VTOR to flash base (required -- chip defaults to ROM at 0x00000000)
+    if( dbginterface.GetValue(_T("ID_VEC_TABLE")).Matches(_T("1")) )
+        string.Add( _T("monitor writeu32 0xE000ED08 = ")
+                    + dbginterface.GetValue(_T("ID_VECTOR_START")) + _T("\n") );
+
+    // Load firmware (no reset between flash setup and load!)
+    if( dbginterface.GetValue(_T("ID_LOAD_PROGRAM")).Matches(_T("1")) )
+        string.Add( _T("load\n") );
+
+    // Set SP and PC from vector table at flash base
+    string.Add( _T("monitor reg r13 = (") );
+    string.Add( dbginterface.GetValue(_T("ID_VECTOR_START")) + _T(")\n") );
+    string.Add( _T("monitor reg pc = (") );
+    string.Add( ::wxString.Format( _T("0x%x"),
+        dbginterface.GetValue(_T("ID_VECTOR_START")).Number()+4 ) + _T(")\n") );
+    string.Add( _T("monitor sleep 100\n") );
+
+    dbginterface.SetAfterConnectCommands(string);
+}

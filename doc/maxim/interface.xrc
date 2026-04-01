@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="INTERFACE_PANEL_ROOT">
+		<size>251,321</size>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxNotebook" name="nbMain">
+					<object class="notebookpage">
+						<object class="wxPanel" name="ID_PANEL3">
+							<object class="wxBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<object class="sizeritem">
+									<object class="wxBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT4">
+												<label>Device:</label>
+											</object>
+											<flag>wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxComboBox" name="ID_DEVICE">
+												<content>
+													<item>MAX32665</item>
+												</content>
+												<size>97,21</size>
+											</object>
+											<flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>4</border>
+											<option>1</option>
+										</object>
+									</object>
+									<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								</object>
+								<object class="sizeritem">
+									<object class="wxFlexGridSizer">
+										<cols>2</cols>
+										<rows>4</rows>
+										<vgap>2</vgap>
+										<growablecols>0</growablecols>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT6">
+												<label>Interface</label>
+											</object>
+											<flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxChoice" name="ID_JTAG_SWD">
+												<content>
+													<item>jtag</item>
+													<item>swd</item>
+												</content>
+												<selection>0</selection>
+											</object>
+											<flag>wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT7">
+												<label>Jtag Speed</label>
+											</object>
+											<flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxTextCtrl" name="ID_SPEED" />
+											<flag>wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT1">
+												<label></label>
+											</object>
+											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_AUTO_SPEED">
+												<label>Auto speed</label>
+											</object>
+											<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT8">
+												<label>Endianness</label>
+											</object>
+											<flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxChoice" name="ID_ENDIANNESS">
+												<content>
+													<item>little</item>
+													<item>big</item>
+												</content>
+												<selection>0</selection>
+											</object>
+											<flag>wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT9">
+												<label>Reset type</label>
+											</object>
+											<flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxChoice" name="ID_RESET_TYPE">
+												<content>
+													<item>0</item>
+													<item>1</item>
+													<item>2</item>
+													<item>3</item>
+													<item>4</item>
+													<item>5</item>
+													<item>6</item>
+													<item>7</item>
+													<item>8</item>
+													<item>9</item>
+													<item>10</item>
+												</content>
+												<selection>0</selection>
+											</object>
+											<flag>wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxStaticText" name="ID_STATICTEXT10">
+												<label>Vector table start</label>
+											</object>
+											<flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxTextCtrl" name="ID_VECTOR_START" />
+											<flag>wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>3</border>
+										</object>
+									</object>
+									<flag>wxEXPAND|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+								</object>
+								<object class="sizeritem">
+									<object class="wxBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_LOAD_PROGRAM">
+												<label>Load progam</label>
+											</object>
+											<flag>wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_FLASH_DOWNLOAD">
+												<label>Flash download</label>
+											</object>
+											<flag>wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_FLASH_BREAK">
+												<label>Flash breakpoints</label>
+											</object>
+											<flag>wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_RAM_EXEC">
+												<label>Execute from RAM</label>
+												<tooltip>Checkk this box if the program must&#x0A;execute from RAM.</tooltip>
+											</object>
+											<flag>wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>3</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_VEC_TABLE">
+												<label>Relocate vector table</label>
+												<tooltip>Relocate the vector table</tooltip>
+											</object>
+											<flag>wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>3</border>
+											<option>1</option>
+										</object>
+									</object>
+									<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								</object>
+							</object>
+						</object>
+						<label>Settings</label>
+					</object>
+					<object class="notebookpage">
+						<object class="wxPanel" name="tabExtras">
+							<object class="wxBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<object class="sizeritem">
+									<object class="wxStaticBoxSizer">
+										<label>Non-Cacheable region</label>
+										<orient>wxVERTICAL</orient>
+										<object class="sizeritem">
+											<object class="wxFlexGridSizer">
+												<cols>2</cols>
+												<rows>2</rows>
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT14">
+														<label></label>
+													</object>
+													<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_NCACHE_CHECK">
+														<label>Disable Cache</label>
+													</object>
+													<flag>wxTOP|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+													<border>10</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT13">
+														<label>Base address</label>
+													</object>
+													<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxTextCtrl" name="ID_NCACHE_BASE" />
+													<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT15">
+														<label>Length</label>
+													</object>
+													<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxTextCtrl" name="ID_NCACHE_LENGTH" />
+													<flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+											</object>
+											<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+											<option>1</option>
+										</object>
+									</object>
+									<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>15</border>
+									<option>1</option>
+								</object>
+								<object class="spacer">
+									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+							</object>
+						</object>
+						<label>Flash cache</label>
+					</object>
+					<object class="notebookpage">
+						<object class="wxPanel" name="ID_PANEL1">
+							<object class="wxBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<object class="sizeritem">
+									<object class="wxCheckBox" name="ID_SEMIHOST_CHECK">
+										<label>Enable Semihosting</label>
+									</object>
+									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>15</border>
+								</object>
+								<object class="sizeritem">
+									<object class="wxStaticBoxSizer">
+										<label>Alternative settings</label>
+										<orient>wxVERTICAL</orient>
+										<object class="sizeritem">
+											<object class="wxFlexGridSizer">
+												<cols>2</cols>
+												<rows>2</rows>
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT16">
+														<label>ArmSWI</label>
+													</object>
+													<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxTextCtrl" name="ID_ARM_SWI" />
+													<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT17">
+														<label>ThumbSWI</label>
+													</object>
+													<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxTextCtrl" name="ID_THUMB_SWI" />
+													<flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+											</object>
+											<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>3</border>
+											<option>1</option>
+										</object>
+									</object>
+									<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+								<object class="spacer">
+									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+							</object>
+						</object>
+						<label>Semihosting</label>
+					</object>
+				</object>
+				<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+		</object>
+	</object>
+</resource>
