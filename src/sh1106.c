@@ -347,6 +347,17 @@ void sh1106_draw_string(sh1106_t *dev, int16_t x, int16_t y,
     }
 }
 
+void sh1106_draw_new_string(sh1106_t *dev, int16_t x, int16_t y,
+                            const char *str, const sh1106_font_t *font,
+                            sh1106_color_t color)
+{
+    /* Erase the string area to ensure full coverage */
+    int16_t width = sh1106_string_width(str, font);
+
+    sh1106_fill_rect(dev, x, y, width, font->height, SH1106_BLACK);
+    sh1106_draw_string(dev, x, y, str, font, color);
+}
+
 int16_t sh1106_string_width(const char *str, const sh1106_font_t *font)
 {
     if (!str || !font) return 0;

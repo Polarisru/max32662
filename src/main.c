@@ -1,29 +1,3 @@
-/**
- * @file        main.c
- * @brief       GPIO Example
- * @details
- */
-
-/******************************************************************************
- *
- * Copyright (C) 2022-2023 Maxim Integrated Products, Inc. (now owned by
- * Analog Devices, Inc.),
- * Copyright (C) 2023-2024 Analog Devices, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- ******************************************************************************/
-
 /***** Includes *****/
 #include <stdio.h>
 #include <string.h>
@@ -31,13 +5,16 @@
 #include "mxc_delay.h"
 #include "nvic_table.h"
 #include "gpio.h"
+#include "i2c_hw.h"
+#include "sh1106.h"
+#include "sh1106_fonts.h"
 
 /***** Definitions *****/
 //#define MXC_GPIO_PORT_IN MXC_GPIO0
 //#define MXC_GPIO_PIN_IN MXC_GPIO_PIN_4
 
 #define MXC_GPIO_PORT_OUT MXC_GPIO0
-#define MXC_GPIO_PIN_OUT MXC_GPIO_PIN_15
+#define MXC_GPIO_PIN_OUT MXC_GPIO_PIN_14
 
 //#define MXC_GPIO_PORT_INTERRUPT_IN MXC_GPIO0
 //#define MXC_GPIO_PIN_INTERRUPT_IN MXC_GPIO_PIN_6
@@ -56,8 +33,11 @@
 
 int main(void)
 {
-    //mxc_gpio_cfg_t gpio_in;
+    sh1106_t display;
     mxc_gpio_cfg_t gpio_out;
+    uint16_t counter = 0;
+    char str[32];
+    //mxc_gpio_cfg_t gpio_in;
     //mxc_gpio_cfg_t gpio_interrupt;
     //mxc_gpio_cfg_t gpio_interrupt_status;
 
@@ -112,7 +92,14 @@ int main(void)
     gpio_out.drvstr = MXC_GPIO_DRVSTR_0;
     MXC_GPIO_Config(&gpio_out);
 
+    I2C_HW_Init();
+
+    (void)sh1106_init(&display, I2C_HW_Send, SH1106_I2C_ADDR);
+
     while (1) {
+        sprintf(str, "%02d:%02d", (counter % 3600) / 60, counter % 60);
+        sh1106_draw_new_string(&display, 0, 16, str, &font_24x40, SH1106_WHITE);
+        sh1106_update(&display);
         /* Read state of the input pin. */
 //        if (MXC_GPIO_InGet(gpio_in.port, gpio_in.mask)) {
 //            /* Input pin was high, clear the output pin. */
@@ -125,6 +112,7 @@ int main(void)
         MXC_Delay(MXC_DELAY_MSEC(500));
         MXC_GPIO_OutSet(gpio_out.port, gpio_out.mask);
         MXC_Delay(MXC_DELAY_MSEC(500));
+        counter++;
     }
 
     return 0;

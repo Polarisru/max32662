@@ -205,6 +205,14 @@ void sh1106_draw_string(sh1106_t *dev, int16_t x, int16_t y,
                         const char *str, const sh1106_font_t *font,
                         sh1106_color_t color);
 
+/**
+ * @brief Draw a null-terminated string with erasing the area
+ *        '\n' advances to x_start, y += font->height.
+ */
+void sh1106_draw_new_string(sh1106_t *dev, int16_t x, int16_t y,
+                                const char *str, const sh1106_font_t *font,
+                                sh1106_color_t color);
+
 /** @brief Measure pixel width of a string without drawing. */
 int16_t sh1106_string_width(const char *str, const sh1106_font_t *font);
 

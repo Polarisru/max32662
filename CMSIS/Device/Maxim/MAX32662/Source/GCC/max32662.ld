@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2022-2023 Maxim Integrated Products, Inc. (now owned by 
+ * Copyright (C) 2022-2023 Maxim Integrated Products, Inc. (now owned by
  * Analog Devices, Inc.),
  * Copyright (C) 2023-2024 Analog Devices, Inc.
  *
@@ -109,6 +109,8 @@ SECTIONS {
         *(COMMON)
         _ebss = ALIGN(., 4);
     } > SRAM
+
+    PROVIDE(end = .);
 
     /* Set stack top to end of RAM, and stack limit move down by
      * size of stack_dummy section */
