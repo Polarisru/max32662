@@ -115,19 +115,22 @@ void ANALOG_Configuration(void)
 
 void ANALOG_StartDMA(void)
 {
-  dma_done    = false;
-  fill_index  = 0;
-  active_buf  = 0;
+    dma_done   = false;
+    fill_index = 0;
+    active_buf = 0;
 
-  MXC_TMR_Stop(MXC_TMR1);
+    MXC_TMR_Stop(MXC_TMR1);
 
-  // Let SDK do exactly what it knows how to do
-  //adc_conv.num_slots = CHUNK_SIZE - 1;  // tell SDK how many slots per transfer
-  MXC_ADC_StartConversionDMA(&adc_conv, (int*)dma_pingpong[0], adc_dma_callback);
-  MXC_DMA->ch[adc_conv.dma_channel].cnt = CHUNK_SIZE * sizeof(uint32_t);
-  MXC_DMA->ch[adc_conv.dma_channel].dst = (uint32_t)dma_pingpong[0];
+    // Full ADC+DMA init — done once here, never in callback
+    MXC_ADC->fifodmactrl |= MXC_F_ADC_REVB_FIFODMACTRL_FLUSH;
+    while (MXC_ADC->fifodmactrl & MXC_F_ADC_REVB_FIFODMACTRL_FLUSH);
 
-  MXC_TMR_Start(MXC_TMR1);
+    MXC_ADC_StartConversionDMA(&adc_conv, (int*)dma_pingpong[0], adc_dma_callback);
+
+    MXC_DMA->ch[adc_conv.dma_channel].cnt = CHUNK_SIZE * sizeof(uint32_t);
+    MXC_DMA->ch[adc_conv.dma_channel].dst = (uint32_t)dma_pingpong[0];
+
+    MXC_TMR_Start(MXC_TMR1);
 }
 
 bool ANALOG_IsReady(void)
