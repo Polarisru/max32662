@@ -1,8 +1,8 @@
 #include "i2c_hw.h"
 #include "i2c.h"
 
-#define I2C_MASTER  MXC_I2C1
-#define I2C_FREQ    100000
+#define I2C_MASTER    MXC_I2C1
+#define I2C_FREQ_HZ   400000UL
 
 void I2C_HW_Init(void)
 {
@@ -10,7 +10,7 @@ void I2C_HW_Init(void)
 
   error = MXC_I2C_Init(I2C_MASTER, 1, 0);
   (void)error;
-  MXC_I2C_SetFrequency(I2C_MASTER, I2C_FREQ);
+  MXC_I2C_SetFrequency(I2C_MASTER, I2C_FREQ_HZ);
 }
 
 void I2C_HW_Disable(void)

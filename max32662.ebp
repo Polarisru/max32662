@@ -20,10 +20,6 @@
 					<Add option="-ffunction-sections" />
 					<Add option="-O0" />
 					<Add option="-g3" />
-					<Add directory="CMSIS\Device\Maxim\MAX32662\Include" />
-					<Add directory="CMSIS\Include" />
-					<Add directory="PeriphDrivers\Include\MAX32662" />
-					<Add directory=".\src" />
 				</Compiler>
 				<Cpp>
 					<Add option="-Wall" />
@@ -68,20 +64,21 @@
 		</Build>
 		<Device>
 			<Add option="$device=cortex-m4" />
+			<Add option="$fpu=fpv4-sp-d16" />
 			<Add option="$lscript=./CMSIS/Device/Maxim/MAX32662/Source/GCC/max32662.ld" />
 			<Add option="$stack=0x0100" />
 			<Add option="$heap=0x0000" />
 		</Device>
 		<Compiler>
-			<Add option="-mfloat-abi=soft" />
+			<Add option="-mfloat-abi=hard" />
 			<Add option="-fno-strict-aliasing" />
 			<Add symbol="TARGET=MAX32662" />
 			<Add symbol="TARGET_REV=0x4131" />
-			<Add directory=".\inc" />
+			<Add directory="CMSIS\Device\Maxim\MAX32662\Include" />
+			<Add directory="CMSIS\Include" />
+			<Add directory="PeriphDrivers\Include\MAX32662" />
 			<Add directory=".\src" />
-			<Add directory=".\cmsis" />
-			<Add directory=".\SPL\inc" />
-			<Add directory=".\SPL\src" />
+			<Add directory="FreeRTOS\Source\include" />
 		</Compiler>
 		<Linker>
 			<Add option="-eb_lib=n" />
@@ -122,6 +119,52 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="CMSIS\Include\core_cm4.h" />
+		<Unit filename="FreeRTOS\Source\croutine.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\event_groups.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\include\atomic.h" />
+		<Unit filename="FreeRTOS\Source\include\croutine.h" />
+		<Unit filename="FreeRTOS\Source\include\deprecated_definitions.h" />
+		<Unit filename="FreeRTOS\Source\include\event_groups.h" />
+		<Unit filename="FreeRTOS\Source\include\FreeRTOS.h" />
+		<Unit filename="FreeRTOS\Source\include\list.h" />
+		<Unit filename="FreeRTOS\Source\include\message_buffer.h" />
+		<Unit filename="FreeRTOS\Source\include\mpu_prototypes.h" />
+		<Unit filename="FreeRTOS\Source\include\mpu_wrappers.h" />
+		<Unit filename="FreeRTOS\Source\include\portable.h" />
+		<Unit filename="FreeRTOS\Source\include\projdefs.h" />
+		<Unit filename="FreeRTOS\Source\include\queue.h" />
+		<Unit filename="FreeRTOS\Source\include\semphr.h" />
+		<Unit filename="FreeRTOS\Source\include\stack_macros.h" />
+		<Unit filename="FreeRTOS\Source\include\StackMacros.h" />
+		<Unit filename="FreeRTOS\Source\include\stream_buffer.h" />
+		<Unit filename="FreeRTOS\Source\include\task.h" />
+		<Unit filename="FreeRTOS\Source\include\timers.h" />
+		<Unit filename="FreeRTOS\Source\list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h" />
+		<Unit filename="FreeRTOS\Source\portable\MemMang\heap_1.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\queue.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\stream_buffer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\tasks.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FreeRTOS\Source\timers.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="PeriphDrivers\Include\MAX32662\adc.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\aes.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\can.h" />
@@ -149,6 +192,14 @@
 		<Unit filename="PeriphDrivers\Include\MAX32662\trng.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\uart.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\wdt.h" />
+		<Unit filename="PeriphDrivers\Source\ADC\adc_me12.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="PeriphDrivers\Source\ADC\adc_revb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="PeriphDrivers\Source\ADC\adc_revb.h" />
+		<Unit filename="PeriphDrivers\Source\ADC\adc_revb_regs.h" />
 		<Unit filename="PeriphDrivers\Source\DMA\dma_me12.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -182,16 +233,32 @@
 		<Unit filename="PeriphDrivers\Source\SYS\mxc_lock.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="PeriphDrivers\Source\SYS\nvic_table.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="PeriphDrivers\Source\SYS\pins_me12.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="PeriphDrivers\Source\SYS\sys_me12.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\adc_hw.c">
+		<Unit filename="PeriphDrivers\Source\TMR\tmr_common.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\adc_hw.h" />
+		<Unit filename="PeriphDrivers\Source\TMR\tmr_common.h" />
+		<Unit filename="PeriphDrivers\Source\TMR\tmr_me12.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb.h" />
+		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb_regs.h" />
+		<Unit filename="src\analog.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src\analog.h" />
+		<Unit filename="src\FreeRTOSConfig.h" />
 		<Unit filename="src\i2c_hw.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -199,6 +266,7 @@
 		<Unit filename="src\main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src\rtos.h" />
 		<Unit filename="src\sh1106.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -207,6 +275,23 @@
 		<Extensions>
 			<code_completion />
 			<debugger>
+				<target_debugging_settings target="Release" active_interface="ST-link">
+					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBITZ}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics" gdb_before_conn="" gdb_after_conn="">
+						<family_options family_id="STMicroelectronics">
+							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
+							<option opt_id="ID_VECTOR_START" opt_value="0x08000000" />
+							<option opt_id="ID_RESET_TYPE" opt_value="System" />
+							<option opt_id="ID_LOAD_PROGRAM" opt_value="1" />
+							<option opt_id="ID_SEMIHOST_CHECK" opt_value="0" />
+							<option opt_id="ID_RAM_EXEC" opt_value="0" />
+							<option opt_id="ID_VEC_TABLE" opt_value="1" />
+							<option opt_id="ID_DONT_CONN_RESET" opt_value="0" />
+							<option opt_id="ID_ALL_MODE_DEBUG" opt_value="0" />
+							<option opt_id="ID_DEV_ADDR" opt_value="" />
+							<option opt_id="ID_VERBOSE_LEVEL" opt_value="3" />
+						</family_options>
+					</debug_interface>
+				</target_debugging_settings>
 				<target_debugging_settings target="Debug" active_interface="J-link">
 					<debug_interface interface_id="J-link" ip_address="localhost" ip_port="2331" path="%Software\SEGGER\J-Link:InstallPath%" executable="JLinkGDBServer.exe" description="CMSIS\Device\Maxim\MAX32662\Include\max32662.svd" dont_start_server="false" backoff_time="2000" options="0" reg_filter="0" active_family="Maxim" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="Generic" />
@@ -251,23 +336,6 @@
 							<option opt_id="ID_THUMB_SWI" opt_value="" />
 						</family_options>
 					</debug_interface>
-					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBITZ}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics" gdb_before_conn="" gdb_after_conn="">
-						<family_options family_id="STMicroelectronics">
-							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
-							<option opt_id="ID_VECTOR_START" opt_value="0x08000000" />
-							<option opt_id="ID_RESET_TYPE" opt_value="System" />
-							<option opt_id="ID_LOAD_PROGRAM" opt_value="1" />
-							<option opt_id="ID_SEMIHOST_CHECK" opt_value="0" />
-							<option opt_id="ID_RAM_EXEC" opt_value="0" />
-							<option opt_id="ID_VEC_TABLE" opt_value="1" />
-							<option opt_id="ID_DONT_CONN_RESET" opt_value="0" />
-							<option opt_id="ID_ALL_MODE_DEBUG" opt_value="0" />
-							<option opt_id="ID_DEV_ADDR" opt_value="" />
-							<option opt_id="ID_VERBOSE_LEVEL" opt_value="3" />
-						</family_options>
-					</debug_interface>
-				</target_debugging_settings>
-				<target_debugging_settings target="Release" active_interface="ST-link">
 					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBITZ}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
