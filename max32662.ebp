@@ -79,6 +79,7 @@
 			<Add directory="PeriphDrivers\Include\MAX32662" />
 			<Add directory=".\src" />
 			<Add directory="FreeRTOS\Source\include" />
+			<Add directory=".\hw" />
 		</Compiler>
 		<Linker>
 			<Add option="-eb_lib=n" />
@@ -165,6 +166,14 @@
 		<Unit filename="FreeRTOS\Source\timers.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="hw\analog.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="hw\analog.h" />
+		<Unit filename="hw\i2c_hw.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="hw\i2c_hw.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\adc.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\aes.h" />
 		<Unit filename="PeriphDrivers\Include\MAX32662\can.h" />
@@ -254,15 +263,7 @@
 		</Unit>
 		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb.h" />
 		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb_regs.h" />
-		<Unit filename="src\analog.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src\analog.h" />
 		<Unit filename="src\FreeRTOSConfig.h" />
-		<Unit filename="src\i2c_hw.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src\i2c_hw.h" />
 		<Unit filename="src\main.c">
 			<Option compilerVar="CC" />
 		</Unit>
