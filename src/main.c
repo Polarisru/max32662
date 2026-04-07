@@ -9,6 +9,7 @@
 #include "sh1106.h"
 #include "sh1106_fonts.h"
 #include "rtos.h"
+#include "fft.h"
 
 #define MXC_GPIO_PORT_OUT MXC_GPIO0
 #define MXC_GPIO_PIN_OUT MXC_GPIO_PIN_14
@@ -23,6 +24,7 @@ static void MainTask(void *pParameters)
   uint16_t counter = 0U;
 
   (void)sh1106_init(&display, I2C_HW_Send, SH1106_I2C_ADDR);
+  fft_init();
 
   ANALOG_StartDMA();
 

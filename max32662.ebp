@@ -74,16 +74,22 @@
 			<Add option="-fno-strict-aliasing" />
 			<Add symbol="TARGET=MAX32662" />
 			<Add symbol="TARGET_REV=0x4131" />
+			<Add symbol="ARM_MATH_CM4" />
+			<Add symbol="__FPU_PRESENT=1" />
 			<Add directory="CMSIS\Device\Maxim\MAX32662\Include" />
 			<Add directory="CMSIS\Include" />
 			<Add directory="PeriphDrivers\Include\MAX32662" />
 			<Add directory=".\src" />
 			<Add directory="FreeRTOS\Source\include" />
 			<Add directory=".\hw" />
+			<Add directory="CMSIS\5.9.0\DSP\1.16.2\Include" />
+			<Add directory="CMSIS\5.9.0\Core\Include" />
 		</Compiler>
 		<Linker>
 			<Add option="-eb_lib=n" />
 			<Add option="-eb_start_files" />
+			<Add library="arm_cortexM4lf_math" />
+			<Add directory="CMSIS\5.9.0\DSP\1.16.2\Lib" />
 		</Linker>
 		<Unit filename="CMSIS\Device\Maxim\MAX32662\Include\adc_regs.h" />
 		<Unit filename="CMSIS\Device\Maxim\MAX32662\Include\aes_key_regs.h" />
@@ -263,6 +269,10 @@
 		</Unit>
 		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb.h" />
 		<Unit filename="PeriphDrivers\Source\TMR\tmr_revb_regs.h" />
+		<Unit filename="src\fft.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src\fft.h" />
 		<Unit filename="src\FreeRTOSConfig.h" />
 		<Unit filename="src\main.c">
 			<Option compilerVar="CC" />

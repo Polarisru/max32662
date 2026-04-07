@@ -146,7 +146,7 @@ bool ANALOG_IsReady(void)
   return result;
 }
 
-uint16_t* ANALOG_GetFullBuff(void)
+uint8_t* ANALOG_GetFullBuff(void)
 {
   return ANALOG_Buff;
 }
