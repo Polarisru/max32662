@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define ANALOG_BUFF_LEN         8192U
+#define ANALOG_BUFF_LEN         2048U
 
 void ANALOG_Configuration(void);
 void ANALOG_StartDMA(void);

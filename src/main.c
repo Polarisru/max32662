@@ -15,6 +15,7 @@
 #define MXC_GPIO_PIN_OUT MXC_GPIO_PIN_14
 
 static sh1106_t display;
+static uint8_t MONITOR_Buff[ANALOG_BUFF_LEN];
 
 /**< Initializing task, will be suspended after completion */
 static void MainTask(void *pParameters)
@@ -22,6 +23,7 @@ static void MainTask(void *pParameters)
   (void) pParameters;
   char str[32];
   uint16_t counter = 0U;
+  uint16_t freq;
 
   (void)sh1106_init(&display, I2C_HW_Send, SH1106_I2C_ADDR);
   fft_init();
@@ -40,7 +42,9 @@ static void MainTask(void *pParameters)
     counter++;
     if (ANALOG_IsReady() == true)
     {
+      (void)memcpy(MONITOR_Buff, ANALOG_GetFullBuff(), ANALOG_BUFF_LEN);
       ANALOG_StartDMA();
+      freq = get_rotation_frequency_q(MONITOR_Buff, ANALOG_GetRate());
     }
   }
 }
